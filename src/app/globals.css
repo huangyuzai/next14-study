@@ -6,6 +6,15 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --background-color: #1c1a2e;
+  --text-color: #333;
+  --btn-active: white;
+}
+
+html[data-theme='dark'] {
+  --text-color: white;
+  --background-color: #1c1a2e;
+  --btn-active: white;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,14 +25,17 @@
   }
 }
 
+.app-container {
+  max-width: 1400px;
+  min-width: 1200px;
+  margin: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--text-color);
+  background: var(--background-color);
 }
 
 @layer utilities {
