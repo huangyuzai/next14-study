@@ -6,15 +6,23 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --background-color: #1c1a2e;
-  --text-color: #333;
-  --btn-active: white;
+  --color333: #333;
+  --white: white;
+  --color0e0a22: #0e0a22;
+  --colorBlue: #3672f6;
+  --background-color: var(--color0e0a22);
+  --text-color: var(--color333);
+  --btn-active: var(--white);
+  --btn-bgColor: var(--white);
+  --btn-active2: var(--colorBlue);
 }
 
 html[data-theme='dark'] {
-  --text-color: white;
-  --background-color: #1c1a2e;
-  --btn-active: white;
+  --text-color: var(--white);
+  --background-color: var(--color0e0a22);
+  --btn-active: var(--white);
+  --btn-bgColor: var(--white);
+  --btn-active2: var(--colorBlue);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,7 +34,7 @@ html[data-theme='dark'] {
 }
 
 .app-container {
-  max-width: 1400px;
+  max-width: 1600px;
   min-width: 1200px;
   margin: auto;
   padding-left: 50px;

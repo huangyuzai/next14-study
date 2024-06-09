@@ -1,0 +1,22 @@
+.container {
+
+}
+.textContainer {
+  flex: 1;
+}
+.imageContainer {
+  flex: 1;
+}
+.heroImage {
+
+}
+.buttons {
+  button {
+    color: var(--color0e0a22);
+    background: var(--btn-bgColor);
+    &:first-child {
+      color: var(--text-color);
+      background: var(--btn-active2);
+    }
+  }
+}

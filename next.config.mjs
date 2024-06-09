@@ -8,6 +8,16 @@ const __dirname = dirname(__filename);
 const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
+  },
+  // 配置图片
+  images: {
+    // 还可以配置多个域
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com'
+      }
+    ]
   }
 };
 
