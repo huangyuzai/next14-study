@@ -10,11 +10,15 @@
   --white: white;
   --color0e0a22: #0e0a22;
   --colorBlue: #3672f6;
+  --colorGray: gray;
+  --color3: #2e2b44;
   --background-color: var(--color0e0a22);
   --text-color: var(--color333);
   --btn-active: var(--white);
   --btn-bgColor: var(--white);
   --btn-active2: var(--colorBlue);
+  --text-color2: var(--colorGray);
+  --text-color3: var(--colorBlue);
 }
 
 html[data-theme='dark'] {
@@ -23,6 +27,8 @@ html[data-theme='dark'] {
   --btn-active: var(--white);
   --btn-bgColor: var(--white);
   --btn-active2: var(--colorBlue);
+  --text-color2: var(--colorGray);
+  --text-color3: var(--colorBlue);
 }
 
 @media (prefers-color-scheme: dark) {

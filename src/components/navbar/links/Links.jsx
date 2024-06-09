@@ -5,9 +5,9 @@ import NavLink from "@/components/navbar/links/navLink/NavLink";
 export default function Links () {
   const links = [
     { title: 'Home', href: '/' },
-    { title: 'Blog', href: '/blog' },
+    { title: 'About', href: '/about' },
     { title: 'Contact', href: '/contact' },
-    { title: 'About', href: '/about' }
+    { title: 'Blog', href: '/blog' },
   ]
   // mock 判断是否登录，以及是否管理员
   const session = true

@@ -1,0 +1,20 @@
+.imgContainer {
+  flex: 1;
+  img {
+    object-fit: contain;
+  }
+}
+.formContainer {
+  flex: 1;
+  input, textarea {
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: var(--color3);
+  }
+}
+.sendBtn {
+  background: var(--btn-active2);
+  color: var(--btn-active);
+}
