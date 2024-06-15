@@ -1,7 +1,12 @@
-export default function LoginPage() {
+import { handleGithubLogin } from "@/lib/actions";
+
+export default async function LoginPage() {
+
   return (
     <main>
-      <p>这是登录页面</p>
+      <form action={handleGithubLogin}>
+        <button>点击登录</button>
+      </form>
     </main>
   );
 }
