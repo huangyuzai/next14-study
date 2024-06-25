@@ -1,18 +1,17 @@
 import styles from './page.module.css'
-import { handleGithubLogin, login } from "@/lib/actions";
+import { handleGithubLogin } from "@/lib/actions";
+import Link from "next/link";
+import LoginForm from '@/components/loginForm/page'
 
 export default async function LoginPage() {
 
   return (
     <main className={`${styles.container} flex flex-col gap-7`}>
-      <form action={login} className={`${styles.form} flex flex-col gap-7`}>
-        <input type="text" placeholder="username" name="username" />
-        <input type="password" placeholder="password" name="password" />
-        <button>Login</button>
-      </form>
       <form action={handleGithubLogin} className={`${styles.form} flex flex-col gap-7`}>
-        <button>github 登录</button>
+        <button className={`!bg-gray-400`}>github 登录</button>
       </form>
+      <LoginForm />
+      <Link href={'/register'}>Not account? <b>Register</b></Link>
     </main>
   );
 }

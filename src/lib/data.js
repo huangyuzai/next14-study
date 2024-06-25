@@ -17,6 +17,7 @@ export const getPosts = async () => {
 
 // 连接数据库获取文章详情
 export const getPost = async (slug) => {
+    noStore();
     try {
         connectToDb()
         const post = await Post.findOne({ slug })
@@ -30,8 +31,10 @@ export const getPost = async (slug) => {
 
 // 连接数据库获取用户信息
 export const getUser = async (id) => {
+    noStore();
     try {
         connectToDb()
+        console.log(`id====`,id);
         const user = await User.findById(id)
         return user
     } catch (error) {

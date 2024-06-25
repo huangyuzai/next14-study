@@ -29,11 +29,13 @@ const SinglePostPage = async ({ params }) => {
   const { slug } = params;
 
   // FETCH DATA WITH AN API
-  const post = await getData(slug);
+  // const post = await getData(slug);
+  
 
   // FETCH DATA WITHOUT AN API
-  // const post = await getPost(slug);
+  const post = await getPost(slug);
 
+  console.log(`post===`, post);
   return (
     <div className={styles.container}>
       {post.img && (

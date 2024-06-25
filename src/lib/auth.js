@@ -4,23 +4,28 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { connectToDb } from "./utils"
 import { User } from "./models"
 import bcrypt from 'bcrypt'
+import { authConfig } from "./auth.config"
 
 const login = async (credentials) => {
     try {
         connectToDb()
         const user = await User.findOne({ username: credentials.username })
+        console.log(`user===`, user);
         if (!user) {
             throw new Error('no user found')
+            return { error: 'no user found' }
         }
         // 验证密码
-        const isPwdCorrect = await bcrypt.compare(credentials.password)
+        const isPwdCorrect = await bcrypt.compare(credentials.password, user.password)
         if (!isPwdCorrect) {
             throw new Error('failed password')
+            return { error: 'failed password' }
         }
         return user
     } catch (error) {
-        console.log(error);
+        console.log(`error===`, error);
         throw new Error('failed to login')
+        return { error: 'failed to login' }
     }
 }
 
@@ -33,7 +38,8 @@ export const {
     auth, 
     signIn, 
     signOut 
-} = NextAuth({ 
+} = NextAuth({
+    ...authConfig, 
     providers: [ 
         GitHub({
             clientId: process.env.GITHUB_ID,
@@ -44,9 +50,11 @@ export const {
             async authorize(credentials) {
                 try {
                     const user = await login(credentials)
+                    console.log(`登录成功`, user);
                     return user
                 } catch (error) {
-                    return null
+                    console.log(`333===`, error);
+                    return { error }
                 }
             }
         })
@@ -74,6 +82,7 @@ export const {
                 }
             }
             return true // 需要返回 true 才能进行 github 登录
-        }
+        },
+        ...authConfig.callbacks
     } 
 })

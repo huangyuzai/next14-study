@@ -3,6 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function PostCard({post}) {
+
+  console.log(`card post==========`, post);
+
   return (
     <main className={`${styles.container} flex flex-col gap-5 mb-5`}>
       <div className={`${styles.topContainer} flex gap-5 justify-between items-center relative`}>

@@ -9,9 +9,9 @@ import bcrypt from 'bcrypt'
 
 
 // server 方法必须通过 async 定义
-export const addPost = async (formData) => {
+export const addPost = async (prevState, formData) => {
     // 需要使用 Object.fromEntries 才可以进行结构，否则只能通过 formData.get('xxx') 才能访问到
-    const { title, desc, slug, userId } = Object.fromEntries(formData)
+    const { title, desc, slug, userId, img } = Object.fromEntries(formData)
     // 连接数据库
     try {
         connectToDb()
@@ -20,12 +20,14 @@ export const addPost = async (formData) => {
             title,
             desc,
             slug,
-            userId
+            userId,
+            img
         })
         // 调用数据库保存
         await newPost.save()
         // 可以在数据更新后更新该路由，保持最新数据
         revalidatePath('/blog')
+        revalidatePath("/admin");
         console.log('save sussceful');
     } catch (err) {
         throw new Error(err)
@@ -38,10 +40,48 @@ export const deletePost = async formData => {
         connectToDb()
         await Post.findByIdAndDelete(id)
         revalidatePath('/blog')
+        revalidatePath("/admin");
     } catch (err) {
         throw new Error(err)
     }
 }
+
+export const addUser = async (prevState,formData) => {
+    const { username, email, password, img } = Object.fromEntries(formData);
+  
+    try {
+      connectToDb();
+      const newUser = new User({
+        username,
+        email,
+        password,
+        img,
+      });
+  
+      await newUser.save();
+      console.log("saved to db");
+      revalidatePath("/admin");
+    } catch (err) {
+      console.log(err);
+      return { error: "Something went wrong!" };
+    }
+  };
+  
+  export const deleteUser = async (formData) => {
+    const { id } = Object.fromEntries(formData);
+  
+    try {
+      connectToDb();
+  
+      await Post.deleteMany({ userId: id });
+      await User.findByIdAndDelete(id);
+      console.log("deleted from db");
+      revalidatePath("/admin");
+    } catch (err) {
+      console.log(err);
+      return { error: "Something went wrong!" };
+    }
+  };
 
 // github 登录
 export const handleGithubLogin = async () => {
@@ -53,21 +93,27 @@ export const handleLogout = async () => {
 }
 
 // 用户名登录
-export const login = async (formData) => {
+export const login = async (previousState, formData) => {
     const { username,password } = Object.fromEntries(formData)
     // 使用 mongodb登录
     try {
         await signIn('credentials', { username, password })
     } catch (error) {
         console.log(error);
-        return {error: 'failed login'}
+        if (error.message.includes('CredentialsSignin')) {
+            return { error: 'Invalid username or password' }
+        }
+        throw error
     }
 }
 
 // 注册用户
-export const handleRegister = async (formData) => {
+// 如果使用 useFormState，则接口这里需要使用 previousState
+export const handleRegister = async (previousState, formData) => {
     const { username,email,password,passwordRepeat } = Object.fromEntries(formData)
-    if (password !== passwordRepeat) console.log('两次密码不一致')
+    if (password !== passwordRepeat) {
+        return { error: '两次密码不一致' }
+    }
     try {
         connectToDb()
         // 如果不存在该用户则新建该用户
@@ -83,10 +129,11 @@ export const handleRegister = async (formData) => {
                 email: email
             })
             await newUser.save()
+            return { success: true }
         } else {
-            throw new Error('该用户已存在')
+            return { error: '该用户已存在' }
         }
     } catch (err) {
-        throw new Error(err)
+        return { error: '请求错误' }
     }
 }

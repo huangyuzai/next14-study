@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+import { hostname } from "node:os";
 import path, { dirname } from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -16,6 +17,9 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.pexels.com'
+      },{
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com'
       }
     ]
   }

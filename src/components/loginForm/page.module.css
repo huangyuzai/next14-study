@@ -1,0 +1,14 @@
+.form input{
+    padding: 20px;
+    background: #1c1a2e;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+.form button {
+    padding: 20px;
+    background: #3f72e9;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+}
